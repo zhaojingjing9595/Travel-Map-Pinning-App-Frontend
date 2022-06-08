@@ -20,7 +20,7 @@ function Login({ setShowLogin, setCurrentUser }) {
     };
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/users/login",
+        "https://travel-map-pinning-app-server.herokuapp.com/api/users/login",
         newUser
       );
         console.log(response.data);

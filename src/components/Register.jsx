@@ -22,7 +22,7 @@ function Register({setShowRegister, setCurrentUser}) {
       };
       try {
         const response = await axios.post(
-          "http://localhost:8080/api/users/register",
+          "https://travel-map-pinning-app-server.herokuapp.com/api/users/register",
           newUser
         );
           console.log(response.data)
