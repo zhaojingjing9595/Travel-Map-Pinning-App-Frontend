@@ -1,3 +1,4 @@
+/* eslint-disable import/no-webpack-loader-syntax */
 import React, { useState, useEffect } from "react";
 import Map, { Marker, Popup } from "react-map-gl";
 import StarIcon from "@mui/icons-material/Star";
@@ -8,6 +9,9 @@ import axios from "axios";
 import { format } from "timeago.js";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import mapboxgl from "mapbox-gl/dist/mapbox-gl-csp";
+import MapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
+mapboxgl.workerClass = MapboxWorker;
 
 function App() {
   const myStorage = window.localStorage;
