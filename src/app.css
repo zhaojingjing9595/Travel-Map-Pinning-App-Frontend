@@ -67,14 +67,18 @@ textarea::placeholder {
 
 .logout{
     background-color: tomato;
+    cursor: pointer;
 }
 
 .login{
     background-color: teal;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 .register{
     background-color: slateblue;
+    cursor: pointer;
 }
 
 .buttons, .logout{

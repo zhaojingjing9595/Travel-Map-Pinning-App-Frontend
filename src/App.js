@@ -6,15 +6,20 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "./app.css";
 import axios from "axios";
 import { format } from "timeago.js";
+import Register from "./components/Register";
+import Login from "./components/Login";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const myStorage = window.localStorage;
+  const [currentUser, setCurrentUser] = useState(localStorage.getItem("user")? localStorage.getItem("user"):null);
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [rating, setRating] = useState(0);
+  const [ rating, setRating ] = useState(0);
+  const [ showRegister, setShowRegister ] = useState(false);
+  const [ showLogin, setShowLogin ] = useState(false);
   const [viewState, setViewState] = React.useState({
     longitude: 35,
     latitude: 31.6,
@@ -68,6 +73,11 @@ function App() {
     }
   }
 
+  function handleLogout() {
+    myStorage.removeItem('user');
+    setCurrentUser(null);
+  }
+
   return (
     <Map
       {...viewState}
@@ -77,7 +87,7 @@ function App() {
       mapStyle="mapbox://styles/safak/cknndpyfq268f17p53nmpwira"
       mapboxAccessToken={process.env.REACT_APP_MAPBOX}
       onDblClick={handleAddClick}
-      transitionDuration="200"
+      transitionDuration="1000"
     >
       {pins.length > 0 &&
         pins.map((p) => (
@@ -178,12 +188,42 @@ function App() {
         </>
       )}
       {currentUser ? (
-        <button className="button logout">Logout</button>
+        <button className="button logout" onClick={handleLogout}>
+          Logout
+        </button>
       ) : (
         <div className="buttons">
-          <button className="button login">Login</button>
-          <button className="button register">Register</button>
+          <button
+            className="button login"
+            onClick={() => {
+              setShowLogin(true);
+              setShowRegister(false);
+            }}
+          >
+            Login
+          </button>
+          <button
+            className="button register"
+            onClick={() => {
+              setShowRegister(true);
+              setShowLogin(false);
+            }}
+          >
+            Register
+          </button>
         </div>
+      )}
+      {showRegister && (
+        <Register
+          setShowRegister={setShowRegister}
+          setCurrentUser={setCurrentUser}
+        />
+      )}
+      {showLogin && (
+        <Login
+          setShowLogin={setShowLogin}
+          setCurrentUser={setCurrentUser}
+        />
       )}
     </Map>
   );
