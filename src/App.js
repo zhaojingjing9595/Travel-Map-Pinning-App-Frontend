@@ -34,7 +34,7 @@ function App() {
     async function getPins() {
       try {
         const response = await axios.get(
-          "https://travel-map-pinning-app-server.herokuapp.com/api/pins"
+//           "https://travel-map-pinning-app-server.herokuapp.com/api/pins"
         );
         setPins(response.data);
       } catch (error) {
